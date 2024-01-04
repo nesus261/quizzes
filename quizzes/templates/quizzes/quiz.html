@@ -1,0 +1,70 @@
+{% extends "quizzes/layout.html" %}
+{% load define_action %}
+{% load static %}
+
+{% block body %}
+<script src="{% static 'quizzes/script3.js' %}"></script>
+    <div class="mt-5 container flex">
+        <div class="row">
+          <div class="col-md mb-4">
+            <div class="quiz-info-container">
+                <h2 class="mb-4">{{ quiz.title }}</h2>
+                <div class="form-group">
+                  <div class="form-control" rows="5">{{ quiz.description }}</div>
+                </div>
+                <div class="form-group">
+                  <label for="category">Category: </label>
+                  <div class="form-control d-inline">{{ quiz.category }}</div>
+                </div>
+                <div class="mb-4">
+                    <button id="show-questions-button" class="btn btn-light border">Show questions</button>
+                </div>
+                <div class="questions-container">
+                    {% define 1 as count %}
+                    {% for q in questions %}
+                    <div class="question-container form-group border rounded p-2">
+                        <h3>Question {{ count }}</h3>
+                        <div class="form-control">{{ q.query }}</div>
+                        <img id="question-image-${id}" class="mt-2 w-100 rounded {% if not q.image %} d-none {% endif %}" src="{{ q.image }}">
+                        <div class="form-control">{{ q.answer }}</div>
+                    </div>
+                    {% define count|add:1 as count %}
+                    {% endfor %}
+                </div>
+                {% if user.is_authenticated %}
+                  {% if user == quiz.owner %}
+                    <a class="btn btn-dark" href="#">Edit</a>
+                  {% endif %}
+                  <form action="{% url 'favourites' %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <input type="int" name="id" value="{{ quiz.id }}" hidden>
+                    <input type="submit" class="btn btn-light border" value="{% if favourite %}Remove from favourites{% else %}Add to favourites{% endif %}"/>
+                  </form>
+                {% endif %}
+            </div>
+            
+          </div>
+          <div class="col-md">
+            <h2 class="mb-4">Settings</h2>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="custom-control custom-switch my-4 ">
+                    <input type="checkbox" class="custom-control-input" id="time-limit-switch" name="time-limit">
+                    <label class="custom-control-label" for="time-limit-switch">Time limit</label>
+                </div>
+                <div class="time-container border rounded p-2 mb-2">
+                    <div class="form-group">
+                        <label>Max per question: </label>
+                        <input type="number" name="max-time-per-question" class="form-control" placeholder="Seconds" value="60">
+                    </div>
+                    <div class="form-group">
+                        <label>Max total: </label>
+                        <input type="number" name="max-time-total" class="form-control" placeholder="Seconds" value="{{ questions|length|multiply:60 }}">
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-info" value="Run">
+            </form>
+          </div>
+        </div>
+      </div>
+{% endblock %}

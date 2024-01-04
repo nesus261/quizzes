@@ -1,0 +1,13 @@
+textarea {
+    resize: none;
+}
+.quiz-info-container {
+    /*max-height: 700px !important;
+    overflow-y: auto !important;*/ 
+}
+.quiz-info-container .form-control {
+    color: black;
+}
+.questions-container, .time-container {
+    display: none;
+}
