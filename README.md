@@ -9,10 +9,12 @@
 ## How to run application?
 
 > Just run the commands below:
+> ```
 > git clone https://github.com/nesus261/quizzes.git
 > cd quizzes
 > pip install -r requirements.txt
 > python manage.py runserver
+> ```
 
 ## Project content
 
