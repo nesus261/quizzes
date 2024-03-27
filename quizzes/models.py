@@ -44,6 +44,10 @@ class Game(models.Model):
     code = models.CharField(max_length=6)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, blank=True, null=True) # models.SET_NULL,
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="games", blank=True, null=True)
+    running = models.BooleanField(default=False)
+    finished = models.BooleanField(default=False)
+    show_player_answers = models.BooleanField(default=True)
+    show_correct_answers = models.BooleanField(default=True)
     time = models.BooleanField()
     time_per_question = models.IntegerField()
     time_total = models.IntegerField()
@@ -55,16 +59,16 @@ class Game(models.Model):
 class Player(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="players")
     name = models.CharField(max_length=32)
-    question = models.IntegerField()
     question_time = models.DateTimeField(auto_now_add=True)
     total_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.name} in {self.game.title}'
+        return f'{self.name} in {self.game.quiz.title}'
 
 
 class MarkedQuestion(models.Model):
-    player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name="history")
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name="marked")
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="marked", null=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     answer = models.CharField(max_length=128)
     result = models.BooleanField()

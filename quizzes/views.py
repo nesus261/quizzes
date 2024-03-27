@@ -6,22 +6,101 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
-from .models import User, Quiz, Question
+from .models import User, Quiz, Question, Game
+
+import random
 
 
 QUIZZES_PER_PAGE = 10
+MY_QUIZZES_PER_PAGE = 4
 
 
-def game_view(request, id):
+@login_required(login_url='login', redirect_field_name=None)
+def init_game_view(request):
+    if request.method == "POST":
+        clear_initialized_games(request.user)
+        code = generateCode()
+        quiz = Quiz.objects.get(id=request.POST["quiz_id"])
+        creator = request.user
+        show_player_answers = "true" in request.POST.getlist('show-player-answers')
+        show_correct_answers = "true" in request.POST.getlist('show-correct-answers')
+        time = "true" in request.POST.getlist('time-limit')
+        time_per_question = request.POST["max-time-per-question"]
+        time_total = request.POST["max-time-total"]
+        try:
+          game = Game(code=code, 
+                      quiz=quiz, 
+                      creator=creator, 
+                      time=time, 
+                      show_player_answers=show_player_answers, 
+                      show_correct_answers=show_correct_answers, 
+                      time_per_question=time_per_question, 
+                      time_total=time_total)
+          game.save()
+        except IntegrityError:
+            return JsonResponse({
+                "message": {
+                    "title": "Error",
+                    "body": "Some unexpected error"
+                }
+            }, status=201)
+        return JsonResponse({ "ok": 1, "code": code }, status=201)
+    else:
+        return HttpResponseRedirect(reverse("index"))
+
+
+def clear_initialized_games(user):
+    for game in Game.objects.filter(creator=user, running=False, finished=False):
+        game.delete()
+
+
+def generateCode():
+    code = random.randint(100000,999999)
+    try:
+        Game.objects.get(code=code)
+        return generateCode()
+    except:
+        return str(code)
+
+
+def game_view(request, code):
     if request.method == "POST":
         pass
     else:
-        quiz = Quiz.objects.get(id=id)
-        return render(request, "quizzes/quiz.html", {
-            "quiz": quiz,
-            "questions": quiz.questions.all(),
-            "favourite": quiz.watching.filter(username=request.user.username).first()
-        })
+        try:
+            game = Game.objects.get(code=code)
+            if request.user == game.creator:
+                return render(request, "quizzes/game_admin.html", {
+                    "game": game,
+                })
+            else:
+                return render(request, "quizzes/game.html", {
+                    "game": game, 
+                })
+        except:
+            return HttpResponseRedirect(reverse("index"))
+
+
+def check_quiz_view(request, code):
+    if request.method == "POST":
+        try:
+            game = Game.objects.get(code=code)
+            if game.running or game.finished:
+                return JsonResponse({ 
+                  "message":{
+                    "title": "Error",
+                    "body": "Quiz finished or currently running" 
+                  }
+                }, status=207)
+            else:
+                return JsonResponse({ "ok": 1 }, status=201)
+        except:
+            return JsonResponse({ 
+              "message":{
+                "title": "Error",
+                "body": "Quiz does not exist" 
+              }
+            }, status=206)
 
 
 def quiz_view(request, id):
@@ -106,6 +185,23 @@ def category_view(request, category):
         "title": category,
         "quizzes": paginator.get_page(page_number)
     })
+
+
+@login_required(login_url='login', redirect_field_name=None)
+def my_quizzes_view(request):
+    if request.method == "GET":
+        running = Paginator(Game.objects.filter(creator=request.user, running=True, finished=False), MY_QUIZZES_PER_PAGE)
+        saved = Paginator(Game.objects.filter(creator=request.user, finished=True), MY_QUIZZES_PER_PAGE)
+        owned = Paginator(Quiz.objects.filter(owner=request.user), MY_QUIZZES_PER_PAGE)
+        running_page_number = request.GET.get('page_running') or 1
+        saved_page_number = request.GET.get('page_saved') or 1
+        owned_page_number = request.GET.get('page_owned') or 1
+        return render(request, "quizzes/my_quizzes.html", {
+            "title": "My quizzes",
+            "running": running.get_page(running_page_number),
+            "saved": saved.get_page(saved_page_number),
+            "owned": owned.get_page(owned_page_number)
+        })
 
 
 @login_required(login_url='login', redirect_field_name=None)

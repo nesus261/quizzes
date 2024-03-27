@@ -10,14 +10,14 @@
             <div class="quiz-info-container">
                 <h2 class="mb-4">{{ quiz.title }}</h2>
                 <div class="form-group">
-                  <div class="form-control" rows="5">{{ quiz.description }}</div>
+                  <div class="form-control">{{ quiz.description }}</div>
                 </div>
                 <div class="form-group">
                   <label for="category">Category: </label>
                   <div class="form-control d-inline">{{ quiz.category }}</div>
                 </div>
                 <div class="mb-4">
-                    <button id="show-questions-button" class="btn btn-light border">Show questions</button>
+                  <button id="show-questions-button" class="btn btn-light border">Show questions</button>
                 </div>
                 <div class="questions-container">
                     {% define 1 as count %}
@@ -45,25 +45,40 @@
             
           </div>
           <div class="col-md">
-            <h2 class="mb-4">Settings</h2>
-            <form action="" method="post">
-                {% csrf_token %}
-                <div class="custom-control custom-switch my-4 ">
-                    <input type="checkbox" class="custom-control-input" id="time-limit-switch" name="time-limit">
+            <h2 class="mb-4">Run quiz</h2>
+            {% if user.is_authenticated %}
+              <form id="start-quiz-form" method="post">
+                  {% csrf_token %}
+                  <input type="number" name="quiz_id" value="{{ quiz.id }}" hidden>
+                  <div class="custom-control custom-switch my-4 ">
+                    <input type="checkbox" class="custom-control-input" id="show-player-answers-switch" name="show-player-answers" value="true">
+                    <label class="custom-control-label" for="show-player-answers-switch">Allow viewing answers after finishing</label>
+                  </div>
+                  <div class="show-answers-container pl-2 mb-2">
+                    <div class="custom-control custom-switch my-4 ">
+                    <input type="checkbox" class="custom-control-input" id="show-correct-answers-switch" name="show-correct-answers" value="true">
+                      <label class="custom-control-label" for="show-correct-answers-switch">Allow viewing correct answers after finishing</label>
+                    </div>
+                  </div>
+                  <!--<div class="custom-control custom-switch my-4 ">
+                    <input type="checkbox" class="custom-control-input" id="time-limit-switch" name="time-limit" value="true">
                     <label class="custom-control-label" for="time-limit-switch">Time limit</label>
-                </div>
-                <div class="time-container border rounded p-2 mb-2">
-                    <div class="form-group">
-                        <label>Max per question: </label>
-                        <input type="number" name="max-time-per-question" class="form-control" placeholder="Seconds" value="60">
-                    </div>
-                    <div class="form-group">
-                        <label>Max total: </label>
-                        <input type="number" name="max-time-total" class="form-control" placeholder="Seconds" value="{{ questions|length|multiply:60 }}">
-                    </div>
-                </div>
-                <input type="submit" class="btn btn-info" value="Run">
-            </form>
+                  </div>-->
+                  <div class="time-container border rounded p-2 mb-2">
+                      <div class="form-group">
+                          <label>Max per question: </label>
+                          <input type="number" name="max-time-per-question" class="form-control" placeholder="Seconds" value="60">
+                      </div>
+                      <div class="form-group">
+                          <label>Max total: </label>
+                          <input type="number" name="max-time-total" class="form-control" placeholder="Seconds" value="{{ questions|length|multiply:60 }}">
+                      </div>
+                  </div>
+                  <input type="submit" class="btn btn-info" value="Run">
+              </form>
+            {% else %}
+              <a href="{% url 'login' %}" class="btn btn-info">Login to run</a>
+            {% endif %}
           </div>
         </div>
       </div>

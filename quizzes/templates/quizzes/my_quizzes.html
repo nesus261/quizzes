@@ -1,0 +1,148 @@
+{% extends "quizzes/layout.html" %}
+{% load define_action %}
+{% load static %}
+
+{% block body %}
+  <script src="{% static 'quizzes/script2.js' %}"></script>
+  <h1 id="running_quizzes" class="mt-4 ml-4">Running quizzes</h1>
+  <div class="mt-3 container">
+    {% define 0 as count %}
+      {% for game in running %}
+        {% if not count|remainder:2 %}
+          {% if count %}
+            </div>
+          {% endif %}
+          <div class="row">
+        {% endif %}
+        <div class="col-md mx-2 form-group border rounded py-3 px-4 quiz-box-container" data-quiz-url="{% url 'game' game.code %}">
+          <div class="quiz-info-container">
+            <h2>{{ game.quiz.title }}</h2>
+            <div class="form-group">
+              <div class="form-control" rows="5">{{ game.quiz.description|slice:40 }}{% if gamequiz.description|length > 40 %}...{% endif %}</div>
+            </div>
+            <div class="form-group">
+              <div class="form-control d-inline">{{ game.quiz.category }}</div>
+            </div>
+          </div>
+        </div>
+        {% define count|add:1 as count %}
+      {% endfor %}
+      {% if count %}
+          </div>
+      {% endif %}
+      {% if not running %}
+        <div class="col-md mx-2 form-group border rounded py-3 px-4">Empty</div>
+      {% endif %} 
+  </div>
+  <div class="row justify-content-center mt-2 mb-5">
+      <ul class="pagination">
+          {% if running.has_previous %}
+              <li class="page-item"><a class="page-link" href="?page_running=1#running_quizzes">First</a></li>
+              <li class="page-item"><a class="page-link" href="?page_running={{ running.previous_page_number }}#running_quizzes">Previous</a></li>
+          {% endif %}
+          <span class="current">
+              <li class="page-item"><a class="page-link disabled">Page {{ running.number }}</a></li>
+              
+          </span>
+          {% if running.has_next %}
+              <li class="page-item"><a class="page-link" href="?page_running={{ running.next_page_number }}#running_quizzes">Next</a></li>
+              <li class="page-item"><a class="page-link" href="?page_running={{ running.paginator.num_pages }}#running_quizzes">Last &raquo;</a></li>
+          {% endif %}
+      </ul>
+  </div>
+
+  
+  <h1 id="saved_quizzes" class="mt-4 ml-4">Saved quizzes</h1>
+  <div class="mt-3 container">
+    {% define 0 as count %}
+      {% for game in saved %}
+        {% if not count|remainder:2 %}
+          {% if count %}
+            </div>
+          {% endif %}
+          <div class="row">
+        {% endif %}
+        <div class="col-md mx-2 form-group border rounded py-3 px-4 quiz-box-container" data-quiz-url="{% url 'game' game.code %}">
+          <div class="quiz-info-container">
+            <h2>{{ game.quiz.title }}</h2>
+            <div class="form-group">
+              <div class="form-control" rows="5">{{ game.quiz.description|slice:40 }}{% if gamequiz.description|length > 40 %}...{% endif %}</div>
+            </div>
+            <div class="form-group">
+              <div class="form-control d-inline">{{ game.quiz.category }}</div>
+            </div>
+          </div>
+        </div>
+        {% define count|add:1 as count %}
+      {% endfor %}
+      {% if count %}
+          </div>
+      {% endif %}
+      {% if not saved %}
+        <div class="col-md mx-2 form-group border rounded py-3 px-4">Empty</div>
+      {% endif %} 
+  </div>
+  <div class="row justify-content-center mt-2 mb-5">
+      <ul class="pagination">
+          {% if saved.has_previous %}
+              <li class="page-item"><a class="page-link" href="?page_saved=1#saved_quizzes">First</a></li>
+              <li class="page-item"><a class="page-link" href="?page_saved={{ saved.previous_page_number }}#saved_quizzes">Previous</a></li>
+          {% endif %}
+          <span class="current">
+              <li class="page-item"><a class="page-link disabled">Page {{ saved.number }}</a></li>
+              
+          </span>
+          {% if saved.has_next %}
+              <li class="page-item"><a class="page-link" href="?page_saved={{ saved.next_page_number }}#saved_quizzes">Next</a></li>
+              <li class="page-item"><a class="page-link" href="?page_saved={{ saved.paginator.num_pages }}#saved_quizzes">Last &raquo;</a></li>
+          {% endif %}
+      </ul>
+  </div>
+
+  <h1 id="created_quizzes" class="mt-4 ml-4">Created quizzes</h1>
+  <div class="mt-3 container">
+    {% define 0 as count %}
+      {% for quiz in owned %}
+        {% if not count|remainder:2 %}
+          {% if count %}
+            </div>
+          {% endif %}
+          <div class="row">
+        {% endif %}
+        <div class="col-md mx-2 form-group border rounded py-3 px-4 quiz-box-container" data-quiz-url="{% url 'quiz' quiz.id %}">
+          <div class="quiz-info-container">
+            <h2>{{ quiz.title }}</h2>
+            <div class="form-group">
+              <div class="form-control" rows="5">{{ quiz.description|slice:40 }}{% if quiz.description|length > 40 %}...{% endif %}</div>
+            </div>
+            <div class="form-group">
+              <div class="form-control d-inline">{{ quiz.category }}</div>
+            </div>
+          </div>
+        </div>
+        {% define count|add:1 as count %}
+      {% endfor %}
+      {% if count %}
+          </div>
+      {% endif %}
+      {% if not owned %}
+        <div class="col-md mx-2 form-group border rounded py-3 px-4">Empty</div>
+      {% endif %} 
+  </div>
+  <div class="row justify-content-center mt-2">
+      <ul class="pagination">
+          {% if owned.has_previous %}
+              <li class="page-item"><a class="page-link" href="?page_owned=1#created_quizzes">First</a></li>
+              <li class="page-item"><a class="page-link" href="?page_owned={{ owned.previous_page_number }}#created_quizzes">Previous</a></li>
+          {% endif %}
+          <span class="current">
+              <li class="page-item"><a class="page-link disabled">Page {{ owned.number }}</a></li>
+              
+          </span>
+          {% if owned.has_next %}
+              <li class="page-item"><a class="page-link" href="?page_owned={{ owned.next_page_number }}#created_quizzes">Next</a></li>
+              <li class="page-item"><a class="page-link" href="?page_owned={{ owned.paginator.num_pages }}#created_quizzes">Last &raquo;</a></li>
+          {% endif %}
+      </ul>
+  </div>
+{% endblock %}

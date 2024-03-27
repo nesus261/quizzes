@@ -15,7 +15,7 @@ from pathlib import Path
 ### my 
 AUTH_USER_MODEL = "quizzes.User"
 
-MEDIA_ROOT = 'D:/Projekty/cs50/web/Final project/quiz_portal/media/'
+MEDIA_ROOT = '/app/media/'
 
 MEDIA_URL = '/media/'
 
@@ -71,6 +71,8 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.static', # 
+                'ws4redis.context_processors.default', # 
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -78,8 +80,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'quiz_portal.wsgi.application'
-
+#WSGI_APPLICATION = 'quiz_portal.wsgi.application'
+WSGI_APPLICATION = 'ws4redis.django_runserver.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -132,3 +134,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+### my 
+
+ASGI_APPLICATION = "quiz_portal.routing.application"
+CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
+
+###

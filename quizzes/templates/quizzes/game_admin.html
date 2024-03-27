@@ -1,0 +1,63 @@
+{% extends "quizzes/layout.html" %}
+{% load define_action %}
+{% load static %}
+
+{% block body %}
+<script src="{% static 'quizzes/script4.js' %}"></script>
+  <div class="wait-participants-room">
+    <div class="mt-5 container flex">
+        <div class="row pt-4">
+          <div class="col-md mb-4">
+            <div class="quiz-info-container text-center">
+              <div class="form-group">
+                <h3>Game code:</h3>
+                <div id="game-code" class="form-control">{{ game.code }}</div>
+              </div>
+              <div class="form-group">
+                <h3>Link:</h3>
+                <div class="form-control">{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'game' game.code %}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <h2 class="mb-4">Participants</h2>
+              <div class="participants"></div>
+              <input type="submit" class="btn btn-info mt-4 start-button" value="Start">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="game-room-admin mt-5 bg-darker p-4 mx-auto">
+      <h2 class="text-center mb-4">Results</h2>
+      <div class="container">
+        <div class="flex container users-progress-container"></div>
+        <input type="submit" class="btn btn-info mt-3 float-right mr-4 end-button" value="{% if not game.finished %}Finish{% else %}Delete{% endif %} quiz">
+        <a href="{% url 'my_quizzes' %}" class="btn btn-light mt-3 float-right mr-2">Go to my quizzes</a>
+        <div>
+        <br>
+        <br>
+      </div>
+    </div>
+    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="messageModalLabel">{% if not game.finished %}Finish the quiz?{% else %}Delete the quiz?{% endif %}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-footer">
+            {% if not game.finished %}
+              <button type="button" class="btn btn-primary save-finish-quiz">Save and finish</button>
+              <button type="button" class="btn btn-primary finish-quiz">Just finish</button>
+            {% else %}
+              <button type="button" class="btn btn-primary finish-quiz">Delete quiz</button>
+            {% endif %}
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

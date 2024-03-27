@@ -8,6 +8,39 @@ textarea {
 .quiz-info-container .form-control {
     color: black;
 }
-.questions-container, .time-container {
+.bg-darker {
+    background: #f7e5e8;
+}
+.questions-container, .time-container, .show-answers-container, .wait-room, .game-room, .game-room-admin, .end-quiz-container, #show-answers-button, .answers-container {
     display: none;
+}
+.progress-bar-width {
+    width: 84%!important;
+}
+.end-quiz-container, .game-room, .username-room, .wait-room {
+    width: 65%;
+    max-width: 750px;
+    border-radius: 18px;
+}
+.correct-answer {
+    background: #b3f5d1;
+}
+.incorrect-answer {
+    background: #f5b3b3;
+}
+.correct-answer-2 {
+    background: #e0faec;
+}
+.participant-name-admin {
+    width: 14%;
+    text-align: right;
+}
+.game-room-admin {
+    border-radius: 18px;
+    max-width: 750px;
+    /*padding-bottom: 35px !important;*/
+}
+.show-answers-container {
+    border: 1px solid #b6b1b1;
+    border-radius: 5px;
 }
