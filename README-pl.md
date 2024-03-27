@@ -8,7 +8,11 @@
 
 ## How to run application?
 
->
+> Po prostu uruchom poniższe komendy:
+> git clone https://github.com/nesus261/quizzes.git
+> cd quizzes
+> pip install -r requirements.txt
+> python manage.py runserver
 
 ## Project content
 
@@ -26,23 +30,23 @@
 
 #### **quizzes/static/quizzes/script1.js**
 
-> Tworzenie quizu po stronie klienta. Obsługuje zarządzanie pytaniami w quizie i wysyłanie żadania utworzenia quizu do serwera.
+> Tworzenie quizu po stronie klienta. Odpowiada za zarządzanie pytaniami w quizie i wysyłanie żadania utworzenia quizu do serwera.
 
 #### **quizzes/static/quizzes/script2.js**
 
-> Obsługa otwierania quizów po naciśnięciu na kontener.
+> Odpowiada za otwierania quizów po naciśnięciu na kontener.
 
 #### **quizzes/static/quizzes/script3.js**
 
-> Obsługa strony quizu. Obsługuje wyświetlanie pytań, które zawiera quiz i tworzenie sesji quizu, do której mogą podłączać się użytkownicy.
+> Odpowiada za stronę quizu. Odpowiada za wyświetlanie pytań, które zawiera quiz i tworzenie sesji quizu, do której mogą podłączać się użytkownicy.
 
 #### **quizzes/static/quizzes/script4.js**
 
-> Obsługa strony administratora uruchomionego quizu. Tworzy i obsługuje połączenie websocket z serwerem, obsługuje dostępne akcje administratora quizu na stronie i wyświetla progress graczy.
+> Zarządza stroną administratora uruchomionego quizu. Tworzy i obsługuje połączenie websocket z serwerem, obsługuje dostępne akcje administratora quizu na stronie i wyświetla progress graczy.
 
 #### **quizzes/static/quizzes/script5.js**
 
-> Obsługa strony gracza quizu. Tworzy i obsługuje połączenie websocket z serwerem, obsługuje akcje gracza na stronie, wyświetla kolejne pytania i rezultat po zakończeniu quizu, razem z zaznaczonymi odpowiedziami (w zależności od ustawień quizu).
+> Odpowiada za stronę gracza quizu. Tworzy i obsługuje połączenie websocket z serwerem, obsługuje akcje gracza na stronie, wyświetla kolejne pytania i rezultat po zakończeniu quizu, razem z zaznaczonymi odpowiedziami (w zależności od ustawień quizu).
 
 #### **quizzes/static/quizzes/script6.js**
 
@@ -52,19 +56,19 @@
 
 #### **quizzes/templates/quizzes/add_quiz.html**
 
-> Szablon strony do tworzenia quizu
+> Szablon dla strony do tworzenia quizu.
 
 #### **quizzes/templates/quizzes/game_admin.html**
 
-> Szablon strony administratora uruchomionego/zakończonego quizu.
+> Szablon dla strony administratora uruchomionego/zakończonego quizu.
 
 #### **quizzes/templates/quizzes/game.html**
 
-> Szablon strony gracza w quizie.
+> Szablon dla strony gracza w quizie.
 
 #### **quizzes/templates/quizzes/layout.html**
 
-> Szablon nawigacji strony.
+> Szablon dla nawigacji strony.
 
 #### **quizzes/templates/quizzes/layout1.html**
 
@@ -76,11 +80,11 @@
 
 #### **quizzes/templates/quizzes/my_quizzes.html**
 
-> Szablon dla strony my quizzes. Wyświetla zapisane, uruchomione i utworzone przez użytkownika strony.
+> Szablon dla strony my quizzes. Wyświetla zapisane, uruchomione i utworzone przez użytkownika quizy.
 
 #### **quizzes/templates/quizzes/quiz.html**
 
-> Szblon dla strony quizu. Wyświetla informacje o quizie oraz ustawienia uruchamianego quizu dla zalogowanych użytkowników.
+> Szablon dla strony quizu. Wyświetla informacje o quizie oraz ustawienia uruchamianego quizu dla zalogowanych użytkowników.
 
 #### **quizzes/templates/quizzes/quizzes.html**
 
@@ -106,7 +110,7 @@
 
 #### **quizzes/consumers.py**
 
-> Obsługa serwera websocket - wszelkie akcje wykonywane po stronie serwera w uruchomionym quizie.
+> Zarządzanie serwerem websocket - wszelkie akcje wykonywane po stronie serwera w uruchomionym quizie.
 
 #### **models.py**
 
