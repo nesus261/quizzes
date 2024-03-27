@@ -8,11 +8,16 @@
 
 ## How to run application?
 
-> Just run the commands below:
+> Install git: https://git-scm.com/downloads
+> Install python and pip: https://www.python.org/downloads/
+> Run the commands below:
+>
+> ```
 > git clone https://github.com/nesus261/quizzes.git
 > cd quizzes
 > pip install -r requirements.txt
 > python manage.py runserver
+> ```
 
 ## Project content
 
