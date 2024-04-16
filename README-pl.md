@@ -2,16 +2,16 @@
 
 ## Distinctiveness and Complexity
 
-> Moja aplikacja to aplikacja do tworzenia i grania w quizy. Znacząco różni się ona od innych aplikacji w kursie i nie jest oparta na żadnym poprzednim projekcie. Jest również bardziej złożona od innych projektów w kursie - pozwala na tworzenie, edytowanie i uruchamianie quizów, do których mogą dołączać użytkownicy za pomocą przeglądarki. Projekt korzysta z websocketu do tworzenia sesji uruchamianych quizów.  
-> Projekt używa django na back-endzie (i 6 modeli django: User, Quiz, Question, Game, Player, MarkedQuestion) i JavaScript na front-endzie.  
-> Aplikacja jest dostosowana do urządzeń mobilnych.
+Moja aplikacja to aplikacja do tworzenia i grania w quizy. Znacząco różni się ona od innych aplikacji w kursie i nie jest oparta na żadnym poprzednim projekcie. Jest również bardziej złożona od innych projektów w kursie - pozwala na tworzenie, edytowanie i uruchamianie quizów, do których mogą dołączać użytkownicy za pomocą przeglądarki. Projekt korzysta z websocketu do tworzenia sesji uruchamianych quizów.  
+Projekt używa django na back-endzie (i 6 modeli django: User, Quiz, Question, Game, Player, MarkedQuestion) i JavaScript na front-endzie.  
+Aplikacja jest dostosowana do urządzeń mobilnych.
 
 ## How to run application?
 
-> Zainstaluj git: https://git-scm.com/downloads  
-> Zainstaluj python i pip: https://www.python.org/downloads/  
-> Uruchom poniższe komendy:
->
+Zainstaluj git: https://git-scm.com/downloads  
+Zainstaluj python i pip: https://www.python.org/downloads/  
+Uruchom poniższe komendy:
+
 > ```
 > git clone https://github.com/nesus261/quizzes.git
 > cd quizzes

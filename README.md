@@ -2,16 +2,16 @@
 
 ## Distinctiveness and Complexity
 
-> My app is an app for creating and playing quizzes. It is significantly different from the other applications in the course and is not based on any previous project. It is also more complex than other projects in the course - it allows you to create, edit, and run quizzes that users can join via a browser. The project uses a websocket to create sessions of running quizzes.  
-> The project uses django on the back-end (and 6 django models: User, Quiz, Question, Game, Player, MarkedQuestion) and JavaScript on the front-end.  
-> The application is mobile-responsible.
+My app is an app for creating and playing quizzes. It is significantly different from the other applications in the course and is not based on any previous project. It is also more complex than other projects in the course - it allows you to create, edit, and run quizzes that users can join via a browser. The project uses a websocket to create sessions of running quizzes.  
+The project uses django on the back-end (and 6 django models: User, Quiz, Question, Game, Player, MarkedQuestion) and JavaScript on the front-end.  
+The application is mobile-responsible.
 
 ## How to run application?
 
-> Install git: https://git-scm.com/downloads  
-> Install python and pip: https://www.python.org/downloads/  
-> Run the commands below:
->
+Install git: https://git-scm.com/downloads  
+Install python and pip: https://www.python.org/downloads/  
+Run the commands below:
+
 > ```
 > git clone https://github.com/nesus261/quizzes.git
 > cd quizzes
