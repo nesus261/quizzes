@@ -8,8 +8,8 @@
 
 ## How to run application?
 
-> Install git: https://git-scm.com/downloads
-> Install python and pip: https://www.python.org/downloads/
+> Install git: https://git-scm.com/downloads  
+> Install python and pip: https://www.python.org/downloads/  
 > Run the commands below:
 >
 > ```
