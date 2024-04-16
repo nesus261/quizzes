@@ -113,6 +113,24 @@ def quiz_view(request, id):
 
 
 @login_required(login_url='login', redirect_field_name=None)
+def delete_quiz_view(request, id):
+    if quiz := Quiz.objects.get(id=id, owner=request.user):
+        quiz.delete()
+        return HttpResponseRedirect(reverse("my_quizzes"))
+    return HttpResponseRedirect(reverse("index"))
+    
+
+@login_required(login_url='login', redirect_field_name=None)
+def edit_quiz_view(request, id):
+    try:
+        return render(request, "quizzes/add_quiz.html", {
+            "quiz": Quiz.objects.get(id=id, owner=request.user)
+        })
+    except:
+        return HttpResponseRedirect(reverse("index"))
+    
+
+@login_required(login_url='login', redirect_field_name=None)
 def add_quiz_view(request):
     if request.method == "POST":
         print(request.POST)
@@ -130,9 +148,20 @@ def add_quiz_view(request):
         if not title or not description:
             return JsonResponse({"error": "Content cannot be empty"}, status=400)
         try:
-          quiz = Quiz(owner=request.user, title=title, category=category, description=description)
-          quiz.save()
-        except IntegrityError:
+          if request.POST.get('id'):
+            if quiz := Quiz.objects.get(id=request.POST.get('id'), owner=request.user):
+                quiz.title = title
+                quiz.category = category
+                quiz.description = description
+                quiz.questions.all().delete()
+                quiz.save()
+            else:
+                return HttpResponseRedirect(reverse("index"))
+          else:
+            quiz = Quiz(owner=request.user, title=title, category=category, description=description)
+            quiz.save()
+        except IntegrityError as e:
+            print(e)
             return JsonResponse({
                 "message": {
                     "title": "Error",
@@ -140,7 +169,6 @@ def add_quiz_view(request):
                 }
             }, status=201)
         for i in range(int(request.POST['questions_count'])):
-            print(request.POST[f'query-{i}'])
             query = request.POST[f'query-{i}']
             image = request.FILES.get(f'image-{i}')
             answer = request.POST[f'answer-{i}']

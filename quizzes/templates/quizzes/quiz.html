@@ -24,16 +24,17 @@
                     {% for q in questions %}
                     <div class="question-container form-group border rounded p-2">
                         <h3>Question {{ count }}</h3>
-                        <div class="form-control">{{ q.query }}</div>
-                        <img id="question-image-${id}" class="mt-2 w-100 rounded {% if not q.image %} d-none {% endif %}" src="{{ q.image }}">
-                        <div class="form-control">{{ q.answer }}</div>
+                        <div class="border rounded p-2">{{ q.query }}</div>
+                        <img id="question-image-${id}" class="my-1 w-100 rounded {% if not q.image %} d-none {% endif %}" src="/media/{{ q.image }}">
+                        <div class="border rounded p-2">{{ q.answer }}</div>
                     </div>
                     {% define count|add:1 as count %}
                     {% endfor %}
                 </div>
                 {% if user.is_authenticated %}
                   {% if user == quiz.owner %}
-                    <a class="btn btn-dark" href="#">Edit</a>
+                    <a href="{% url 'delete_quiz' quiz.id %}" class="btn btn-danger" href="#">Delete</a>
+                    <a href="{% url 'edit_quiz' quiz.id %}" class="btn btn-dark" href="#">Edit</a>
                   {% endif %}
                   <form action="{% url 'favourites' %}" method="post" class="d-inline">
                     {% csrf_token %}
@@ -74,7 +75,7 @@
                           <input type="number" name="max-time-total" class="form-control" placeholder="Seconds" value="{{ questions|length|multiply:60 }}">
                       </div>
                   </div>
-                  <input type="submit" class="btn btn-info" value="Run">
+                  <input type="submit" class="btn btn-info mb-3" value="Run">
               </form>
             {% else %}
               <a href="{% url 'login' %}" class="btn btn-info">Login to run</a>

@@ -199,6 +199,7 @@ class GameConsumer(AsyncWebsocketConsumer):
             return
         next_question = await self.get_next_question_db()
         if next_question.get('end'):
+            print(await self.end_game_data_db())
             await self.send(json.dumps(
                 {
                     "type": "end_quiz",
@@ -341,10 +342,9 @@ class GameConsumer(AsyncWebsocketConsumer):
         if self.game.show_player_answers:
             data["answers"] = []
             for question in self.player.marked.all():
-                print(question.question.image)
                 data["answers"].append({
                     "query": question.question.query,
-                    "image": question.question.image if question.question.image else None,
+                    "image": str(question.question.image) if question.question.image else None,
                     "answer": question.answer,
                     "result": question.result,
                     "correct_answer": question.question.answer if self.game.show_correct_answers else None

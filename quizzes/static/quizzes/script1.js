@@ -1,4 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Load image as input file for question 
+    (async()=>{
+        if (document.querySelector('#add_quiz_form input[name="id"]'))
+        {
+            for (let question of document.querySelectorAll('.question-container'))
+            {
+                let image = question.querySelector('img');
+                if (image.src)
+                {
+                    const response = await fetch(image.src);
+                    const blob = await response.blob();
+                    const file = new File([blob], 'image.png', {
+                        type: blob.type,
+                        lastModified: new Date(),
+                    });
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    question.querySelector('input[type="file"]').files = dataTransfer.files;
+                }
+            }
+        }
+    })();
     // show modal if message exist 
     document.querySelector('#add_question').addEventListener('click', addQuestion);
     function addQuestion(e) {
@@ -14,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <input type="file" name="image-${id}" id="file-${id}" data-question-id="${id}" hidden>
           <label class="btn btn-light border mt-2" for="file-${id}" accept="image/*">Select image (optional)</label>
           <button class="btn btn-danger remove-question-image d-none" data-question-id="${id}">Remove image</button>
-          <input type="text" name="answer-${id}" class="form-control" placeholder="Expected answer (text or regular expression)" required>
+          <input type="text" name="answer-${id}" class="form-control mt-1" placeholder="Expected answer (text or regular expression)" required>
           <button class="btn btn-danger mt-2 remove-question" data-question-id="${id}">Remove question</button>
           <button class="btn btn-light border mt-2 move-up">Move Up</button>
           <button class="btn btn-light border mt-2 move-down">Move Down</button>

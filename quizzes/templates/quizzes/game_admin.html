@@ -36,6 +36,30 @@
         <div>
         <br>
         <br>
+        {% if game.finished %}
+          <br>
+          {% for player in game.players|all %}
+            <button class="btn btn-light mt-2 show-answers-for-player-button" data-player="{{ player.name }}">Show <b class="text-info">{{ player.name }}'s</b> answers</button>
+            <div id="answers-of-{{ player.name }}" class="answers-container mt-2">
+              {% define 1 as count %}
+              {% for marked in player.marked|all %}
+                <div class="question-container form-group border rounded p-2 {% if marked.result %} correct-answer {% else %} incorrect-answer {% endif %}">
+                  <h3>Question {{ count }}</h3>
+                  <div class="border rounded p-2">{{ marked.question.query }}</div>
+                  {% if marked.question.image %} 
+                    <img id="question-image-{{ count }}" class="mt-2 w-100 rounded" src="/media/{{ marked.question.image }}"> 
+                  {% endif %}
+                  <div class="border rounded p-2">{{ marked.answer }}</div>
+                  {% if not marked.result %} 
+                    <div class="border rounded p-2 correct-answer-2">{{ marked.question.answer }}</div>
+                  {% endif %}
+                </div>
+                {% define count|add:1 as count %}
+              {% endfor %}
+            </div>
+            <br>
+          {% endfor %}
+        {% endif %}
       </div>
     </div>
     <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">

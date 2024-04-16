@@ -7,6 +7,14 @@ register = template.Library()
 def define(val=None):
   return val
 
+@register.filter(name='all')
+def all(value):
+  return value.all()
+    
+@register.filter(name='count')
+def count(value):
+    return value.count()
+
 @register.filter(name='categories')
 def categories(value):
     return CATEGORIES

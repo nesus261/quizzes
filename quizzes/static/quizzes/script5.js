@@ -71,10 +71,11 @@ class Socket {
     next_question() {
         document.querySelector('.question-number').innerText = `Question ${this.questions.history.length+1}`;
         document.querySelector('.question-query').innerText = this.questions.current.fields.query;
-        if (this.questions.current.fields.image?.url)
+        
+        if (this.questions.current.fields.image)
         {
             document.querySelector('.question-image').style.display = 'block';
-            document.querySelector('.question-image').src = this.questions.current.fields.image.url;
+            document.querySelector('.question-image').src = `/media/${this.questions.current.fields.image}`;
         }
         else 
         {
@@ -123,10 +124,10 @@ class Socket {
                 document.querySelector('.answers-container').innerHTML += `
                 <div class="question-container form-group border rounded p-2 ${question.result ? 'correct-answer' : 'incorrect-answer'}">
                     <h3>Question ${parseInt(i)+1}</h3>
-                    <div class="form-control">${question.query}</div>
-                    ${question.image ? `<img id="question-image-${i}" class="mt-2 w-100 rounded" src="${question.image}">` : ''}
-                    <div class="form-control">${question.answer}</div>
-                    ${question.correct_answer && !question.result ? `Correct:<div class="form-control correct-answer-2">${question.correct_answer}</div>` : ''}
+                    <div class="border rounded p-2">${question.query}</div>
+                    ${question.image ? `<img id="question-image-${i}" class="mt-2 w-100 rounded" src="/media/${question.image}">` : ''}
+                    <div class="border rounded p-2">${question.answer}</div>
+                    ${question.correct_answer && !question.result ? `Correct:<div class="border rounded p-2 correct-answer-2">${question.correct_answer}</div>` : ''}
                 </div>
                 `;
             }

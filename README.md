@@ -18,18 +18,10 @@
 > pip install -r requirements.txt
 > python manage.py runserver
 > ```
->
-> ```
->
-> ```
 
 ## Project content
 
 ### Media
-
-#### **media/profile_pictures**
-
-> User profile photos.
 
 #### **media/questions_images**
 
@@ -39,11 +31,11 @@
 
 #### **quizzes/static/quizzes/script1.js**
 
-> Client-side quiz creation. Responsible for managing questions in the quiz and sending a request to create a quiz to the server.
+> Creating and modifying a quiz on the client side. Responsible for managing the questions in the quiz and sending a request to create or modify the quiz to the server.
 
 #### **quizzes/static/quizzes/script2.js**
 
-> Responsible for opening quizzes when clicking on the container.
+> Responsible for opening quizzes after clicking on the container and handling joining a quiz from the website navigator.
 
 #### **quizzes/static/quizzes/script3.js**
 
@@ -57,19 +49,15 @@
 
 > Responsible for the quiz player's page. Creates and maintains a websocket connection to the server, handles player actions on the website, displays subsequent questions and the result after completing the quiz, along with selected answers (depending on the quiz settings).
 
-#### **quizzes/static/quizzes/script6.js**
-
-> Support for joining a quiz from the site navigator.
-
 ### Templates
 
 #### **quizzes/templates/quizzes/add_quiz.html**
 
-> Template for a website to create a quiz.
+> A template for a page for creating and modifying quizzes.
 
 #### **quizzes/templates/quizzes/game_admin.html**
 
-> Template for the admin page of a started/finished quiz.
+> Template for the admin page of a started/finished quiz. Shows players' progress.
 
 #### **quizzes/templates/quizzes/game.html**
 

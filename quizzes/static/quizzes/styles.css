@@ -18,7 +18,7 @@ textarea {
     width: 84%!important;
 }
 .end-quiz-container, .game-room, .username-room, .wait-room {
-    width: 65%;
+    width: 80%;
     max-width: 750px;
     border-radius: 18px;
 }

@@ -65,9 +65,17 @@ class Socket {
             document.querySelector('.finish-quiz').addEventListener('click', (e) => {
                 this.send({ type: 'end_game' });
             });
-            document.querySelector('.save-finish-quiz').addEventListener('click', (e) => {
+            document.querySelector('.save-finish-quiz')?.addEventListener('click', (e) => {
                 this.send({ type: 'save_end_game' });
             });
+            document.querySelectorAll('.show-answers-for-player-button').forEach(button => 
+                button.addEventListener('click', () => {
+                    let name = button.dataset.player;
+                    let answers_container = document.querySelector(`#answers-of-${name}`);
+                    answers_container.style.display = answers_container.style.display == 'block' ? 'none' : 'block';
+                    button.innerHTML = answers_container.style.display == 'none' ? `Show <b class="text-info">${name}'s</b> answers` : `Hide <b class="text-info">${name}'s</b> answers`;
+                })
+            );
         };
     }
     renderParticipants() {

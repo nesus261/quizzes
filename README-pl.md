@@ -10,7 +10,7 @@
 
 > Zainstaluj git: https://git-scm.com/downloads
 > Zainstaluj python i pip: https://www.python.org/downloads/
-> Uuruchom poniższe komendy:
+> Uruchom poniższe komendy:
 >
 > ```
 > git clone https://github.com/nesus261/quizzes.git
@@ -23,10 +23,6 @@
 
 ### Media
 
-#### **media/profile_pictures**
-
-> Zdjęcia profilowe użytkowników.
-
 #### **media/questions_images**
 
 > Zdjęcia dodane do pytań w quizach.
@@ -35,11 +31,11 @@
 
 #### **quizzes/static/quizzes/script1.js**
 
-> Tworzenie quizu po stronie klienta. Odpowiada za zarządzanie pytaniami w quizie i wysyłanie żadania utworzenia quizu do serwera.
+> Tworzenie i modyfikacja quizu po stronie klienta. Odpowiada za zarządzanie pytaniami w quizie i wysyłanie żądania utworzenia lub modyfikacji quizu do serwera.
 
 #### **quizzes/static/quizzes/script2.js**
 
-> Odpowiada za otwierania quizów po naciśnięciu na kontener.
+> Odpowiada za otwierania quizów po naciśnięciu na kontener oraz obsługę dołączania do quizu z navigatora strony.
 
 #### **quizzes/static/quizzes/script3.js**
 
@@ -53,19 +49,15 @@
 
 > Odpowiada za stronę gracza quizu. Tworzy i obsługuje połączenie websocket z serwerem, obsługuje akcje gracza na stronie, wyświetla kolejne pytania i rezultat po zakończeniu quizu, razem z zaznaczonymi odpowiedziami (w zależności od ustawień quizu).
 
-#### **quizzes/static/quizzes/script6.js**
-
-> Obsługa dołączania do quizu z navigatora strony.
-
 ### Templates
 
 #### **quizzes/templates/quizzes/add_quiz.html**
 
-> Szablon dla strony do tworzenia quizu.
+> Szablon dla strony do tworzenia i modyfikacji quizów.
 
 #### **quizzes/templates/quizzes/game_admin.html**
 
-> Szablon dla strony administratora uruchomionego/zakończonego quizu.
+> Szablon dla strony administratora uruchomionego/zakończonego quizu. Pokazuje progres graczy.
 
 #### **quizzes/templates/quizzes/game.html**
 
