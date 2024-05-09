@@ -6,20 +6,24 @@ Moja aplikacja to aplikacja do tworzenia i grania w quizy. Pozwala ona na tworze
 Projekt używa django na back-endzie (i 6 modeli django: User, Quiz, Question, Game, Player, MarkedQuestion) i JavaScript na front-endzie.  
 Aplikacja jest dostosowana do urządzeń mobilnych.
 
-> ### Wyzwania
+<ul>
 
-> #### Websocket communication
->
-> Najtrudniejsze w projekcie było utworzenie i obsługa serwera websocket w django. Wcześniej tworzyłem projekty korzystające z serwerów websocket w python i node.js, więc sądziłem, że to najlepsza architektura pod serwis z quizami - komunikacja w czasie rzeczywistym, bez odpytywania co chwilę o zmiany na serwerze i asynchroniczność są wydajniejszym rozwiązaniem. Szukałem więc możliwości utworzenia serwera websocket wewnątrz projektu django i znalazłem bibliotekę channels, która się do tego nadaje. Bazując na jej dokumentacji utworzyłem pliki obsługujące serwer websocket (routing.py i consumers.py) i skonfigurowałem django (plik settings.py) tak, by z niego korzystało - dodałem channels do INSTALLED_APPS i skonfigurowałem komunikację asynchroniczną (ASGI). Skonfigurowałem również CHANNEL_LAYERS, by różne instancje socketu mogły się ze sobą komunikować. Użyłem channels.layers.InMemoryChannelLayer, co nie jest dobrym rozwiązaniem produkcyjnym, ale nadaje się do testów, bo nie chciałem instalować dodatkowo redis (nie działa na windows, więc musiałbym użyć dockera, by projekt działał niezależnie od systemu operacyjnego).  
-> Nie miałem żadnych problemów ze stroną klienta, ponieważ, jak wspomniałem wyżej, tworzyłem już projekty korzystające z websocket.
+### Wyzwania
 
-> #### Templatetags
->
-> Zauważyłem, że przydatna byłaby możliwość tworzenia zmiennych w templates i znalazłem w internecie sposób by to robić - templatetags. Zauważyłem, że to prosty sposób, by korzystać z funkcji pythona z templates i skorzystałem z niego również m.in. do wykonywania .all() i .count() dla obiektów z bazy danych bezpośrednio z templates.
+#### Websocket communication
 
-> #### Wysyłanie csrf_token z JavaScript
->
-> Aby wygodnie obsługiwać odpowiedzi na wysyłane zapytania, wysyłam je za pośrednictwem JavaScript fetch. By dbać o bezpieczeństwo chciałem wysyłać csrf_token przez JavaScript. W tym celu podmieniam funkcję onsubmit na własną, w której wysyłam zapytanie fetch podając jako body dane pobrane z formularza, które zawierają wygenerowany csrf_token (new FormData(e.target)) i zwracam false, by nie odświeżać strony.
+Najtrudniejsze w projekcie było utworzenie i obsługa serwera websocket w django. Wcześniej tworzyłem projekty korzystające z serwerów websocket w python i node.js, więc sądziłem, że to najlepsza architektura pod serwis z quizami - komunikacja w czasie rzeczywistym, bez odpytywania co chwilę o zmiany na serwerze i asynchroniczność są wydajniejszym rozwiązaniem. Szukałem więc możliwości utworzenia serwera websocket wewnątrz projektu django i znalazłem bibliotekę channels, która się do tego nadaje. Bazując na jej dokumentacji utworzyłem pliki obsługujące serwer websocket (routing.py i consumers.py) i skonfigurowałem django (plik settings.py) tak, by z niego korzystało - dodałem channels do INSTALLED_APPS i skonfigurowałem komunikację asynchroniczną (ASGI). Skonfigurowałem również CHANNEL_LAYERS, by różne instancje socketu mogły się ze sobą komunikować. Użyłem channels.layers.InMemoryChannelLayer, co nie jest dobrym rozwiązaniem produkcyjnym, ale nadaje się do testów, bo nie chciałem instalować dodatkowo redis (nie działa na windows, więc musiałbym użyć dockera, by projekt działał niezależnie od systemu operacyjnego).  
+Nie miałem żadnych problemów ze stroną klienta, ponieważ, jak wspomniałem wyżej, tworzyłem już projekty korzystające z websocket.
+
+#### Templatetags
+
+Zauważyłem, że przydatna byłaby możliwość tworzenia zmiennych w templates i znalazłem w internecie sposób by to robić - templatetags. Zauważyłem, że to prosty sposób, by korzystać z funkcji pythona z templates i skorzystałem z niego również m.in. do wykonywania .all() i .count() dla obiektów z bazy danych bezpośrednio z templates.
+
+#### Wysyłanie csrf_token z JavaScript
+
+Aby wygodnie obsługiwać odpowiedzi na wysyłane zapytania, wysyłam je za pośrednictwem JavaScript fetch. By dbać o bezpieczeństwo chciałem wysyłać csrf_token przez JavaScript. W tym celu podmieniam funkcję onsubmit na własną, w której wysyłam zapytanie fetch podając jako body dane pobrane z formularza, które zawierają wygenerowany csrf_token (new FormData(e.target)) i zwracam false, by nie odświeżać strony.
+
+</ul>
 
 ## How to run application?
 

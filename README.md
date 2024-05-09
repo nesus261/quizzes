@@ -8,20 +8,20 @@ The application is mobile-responsible.
 
 <ul>
 
-> ### Challenges
+### Challenges
 
-> #### Websocket communication
->
-> The most difficult part of the project was creating and operating a websocket server in Django. I had previously created projects using websocket servers in python and node.js, so I thought this was the best architecture for a quiz website - real-time communication, without constantly asking about changes on the server, and asynchronicity is a more efficient solution. So I was looking for a way to create a websocket server inside a django project and found the channels package that is suitable for this. Based on its documentation, I created files supporting the websocket server (routing.py and consumers.py) and configured django (settings.py file) to use it - I added channels to INSTALLED_APPS and configured asynchronous communication (ASGI). I also configured CHANNEL_LAYERS so that different socket instances can communicate with each other. I used channels.layers.InMemoryChannelLayer, which is not a good production solution, but is suitable for testing because I didn't want to install redis additionally (it doesn't work on windows, so I would have to use docker to make the project work independently of the operating system).
-> I didn't have any problems with the client side because, as I mentioned above, I was already creating projects using websockets.
+#### Websocket communication
 
-> #### Templatetags
->
-> I noticed that it would be useful to be able to create variables in templates and I found a way to do it on the Internet - templatetags. I noticed that this is an easy way to use python functions from templates and I also used it, among others: to perform .all() and .count() on database objects directly from templates.
+The most difficult part of the project was creating and operating a websocket server in Django. I had previously created projects using websocket servers in python and node.js, so I thought this was the best architecture for a quiz website - real-time communication, without constantly asking about changes on the server, and asynchronicity is a more efficient solution. So I was looking for a way to create a websocket server inside a django project and found the channels package that is suitable for this. Based on its documentation, I created files supporting the websocket server (routing.py and consumers.py) and configured django (settings.py file) to use it - I added channels to INSTALLED_APPS and configured asynchronous communication (ASGI). I also configured CHANNEL_LAYERS so that different socket instances can communicate with each other. I used channels.layers.InMemoryChannelLayer, which is not a good production solution, but is suitable for testing because I didn't want to install redis additionally (it doesn't work on windows, so I would have to use docker to make the project work independently of the operating system).  
+I didn't have any problems with the client side because, as I mentioned above, I was already creating projects using websockets.
 
-> #### Sending csrf_token from JavaScript
->
-> To conveniently handle responses to sent queries, I send them via JavaScript fetch. To ensure security, I wanted to send csrf_token via JavaScript. For this purpose, I replace the onsubmit function with my own one, in which I send a fetch query providing the data taken from the form as body, which contains the generated csrf_token (new FormData(e.target)) and return false so as not to refresh the page.
+#### Templatetags
+
+I noticed that it would be useful to be able to create variables in templates and I found a way to do it on the Internet - templatetags. I noticed that this is an easy way to use python functions from templates and I also used it, among others: to perform .all() and .count() on database objects directly from templates.
+
+#### Sending csrf_token from JavaScript
+
+To conveniently handle responses to sent queries, I send them via JavaScript fetch. To ensure security, I wanted to send csrf_token via JavaScript. For this purpose, I replace the onsubmit function with my own one, in which I send a fetch query providing the data taken from the form as body, which contains the generated csrf_token (new FormData(e.target)) and return false so as not to refresh the page.
 
 </ul>
 
