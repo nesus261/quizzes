@@ -25,8 +25,6 @@ Aby wygodnie obsługiwać odpowiedzi na wysyłane zapytania, wysyłam je za poś
 
 </ul>
 
-<br>
-
 ## How to run application?
 
 Zainstaluj git: https://git-scm.com/downloads  
