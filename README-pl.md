@@ -24,6 +24,7 @@ Zauważyłem, że przydatna byłaby możliwość tworzenia zmiennych w templates
 Aby wygodnie obsługiwać odpowiedzi na wysyłane zapytania, wysyłam je za pośrednictwem JavaScript fetch. By dbać o bezpieczeństwo chciałem wysyłać csrf_token przez JavaScript. W tym celu podmieniam funkcję onsubmit na własną, w której wysyłam zapytanie fetch podając jako body dane pobrane z formularza, które zawierają wygenerowany csrf_token (new FormData(e.target)) i zwracam false, by nie odświeżać strony.
 
 </ul>
+<br>
 
 ## How to run application?
 
