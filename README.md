@@ -6,6 +6,8 @@ My app is an app for creating and playing quizzes. It is My app is an app for cr
 The project uses django on the back-end (and 6 django models: User, Quiz, Question, Game, Player, MarkedQuestion) and JavaScript on the front-end.
 The application is mobile-responsible.
 
+<br>
+
 <ul>
 
 ### Challenges

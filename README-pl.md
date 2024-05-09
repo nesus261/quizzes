@@ -6,6 +6,8 @@ Moja aplikacja to aplikacja do tworzenia i grania w quizy. Pozwala ona na tworze
 Projekt używa django na back-endzie (i 6 modeli django: User, Quiz, Question, Game, Player, MarkedQuestion) i JavaScript na front-endzie.  
 Aplikacja jest dostosowana do urządzeń mobilnych.
 
+<br>
+
 <ul>
 
 ### Wyzwania
