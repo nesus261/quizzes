@@ -25,6 +25,8 @@ To conveniently handle responses to sent queries, I send them via JavaScript fet
 
 </ul>
 
+<br>
+
 ## How to run application?
 
 Install git: https://git-scm.com/downloads  
