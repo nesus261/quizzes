@@ -6,6 +6,8 @@ My app is an app for creating and playing quizzes. It is My app is an app for cr
 The project uses django on the back-end (and 6 django models: User, Quiz, Question, Game, Player, MarkedQuestion) and JavaScript on the front-end.
 The application is mobile-responsible.
 
+<ul>
+
 > ### Challenges
 
 > #### Websocket communication
@@ -20,6 +22,8 @@ The application is mobile-responsible.
 > #### Sending csrf_token from JavaScript
 >
 > To conveniently handle responses to sent queries, I send them via JavaScript fetch. To ensure security, I wanted to send csrf_token via JavaScript. For this purpose, I replace the onsubmit function with my own one, in which I send a fetch query providing the data taken from the form as body, which contains the generated csrf_token (new FormData(e.target)) and return false so as not to refresh the page.
+
+</ul>
 
 ## How to run application?
 
